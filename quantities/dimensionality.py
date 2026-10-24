@@ -227,6 +227,16 @@ def _d_multiply(q1, q2, out=None):
 p_dict[np.multiply] = _d_multiply
 p_dict[np.cross] = _d_multiply
 
+def _d_matmul(q1, q2, out=None):
+    from .uncertainquantity import UncertainQuantity
+
+    if any(isinstance(q, UncertainQuantity) for q in (q1, q2, out)):
+        raise ValueError('matrix multiplication is not supported for UncertainQuantity')
+    if not hasattr(q1, 'dimensionality') and not hasattr(q2, 'dimensionality'):
+        return Dimensionality()
+    return _d_multiply(q1, q2, out)
+p_dict[np.matmul] = _d_matmul
+
 def _d_divide(q1, q2, out=None):
     try:
         return q1._dimensionality / q2._dimensionality

@@ -6,6 +6,9 @@ CHANGES
 Unreleased
 -----------
 
+- Support matrix multiplication with ``@`` and ``numpy.matmul``, multiplying
+  the operand units (`#231 <https://github.com/python-quantities/python-quantities/issues/231>`_).
+
 - Correct the pond force unit to 0.00980665 N (one gram-force); it was
   previously 1000 times too large (`#44 <https://github.com/python-quantities/python-quantities/issues/44>`_).
 

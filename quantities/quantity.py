@@ -324,7 +324,8 @@ class Quantity(np.ndarray):
 
         # For NumPy < 2.0 we do old behavior
         if _np_version < (2, 0, 0):
-            if not isinstance(obj, Quantity):
+            # Generalized ufuncs do not call __array_prepare__, even for out.
+            if not isinstance(obj, Quantity) or (context is not None and context[0] is np.matmul):
                 return self.__array_prepare__(obj, context)
             else:
                 return obj
